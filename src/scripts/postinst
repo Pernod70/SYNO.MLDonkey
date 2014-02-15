@@ -1,0 +1,63 @@
+#!/bin/sh
+
+# NON-PRIVILEGED USER TO RUN MLDONKEY.
+USER=mldonkey
+
+# SYNOLOGY SERVICE TOOL
+SERVICETOOL="/usr/syno/bin/servicetool"
+
+# MLDONKEY HOME
+export MLDONKEY_DIR="`${SERVICETOOL} --get-alive-volume`/MLDonkey"
+
+# PATH TO LOGFILE
+LOGFILE="${MLDONKEY_DIR}/mlnet.log"
+
+# CREATE MLDONKEY USER
+synouser --get $USER
+if [ $? -ne 0 ]
+then
+    # Create user with random password
+    synouser --add $USER `uuidgen | cut -c-8` 'MLDonkey User' '' '' ''
+fi
+
+# CREATE THE MLDONKEY HOME
+synoshare --get MLDonkey
+if [ $? -ne 0 ]
+then
+    # create shared folder
+    synoshare --add MLDonkey "MLDonkey Home" $MLDONKEY_DIR "" "admin,mldonkey" "" 1 7
+else
+    # set rights on existing folder for new user
+    synoshare --setuser MLDonkey RW = admin,mldonkey
+fi
+
+# CREATE LOGFILE
+if [ ! -e ${LOGFILE} ]; then
+    touch ${LOGFILE}
+fi
+
+# COPY DEFAULT SETTINGS
+if [ ! -f ${MLDONKEY_DIR}/bittorrent.ini ]; then
+    cp ${SYNOPKG_PKGDEST}/mldonkey/config/bittorrent.ini ${MLDONKEY_DIR}
+fi
+if [ ! -f ${MLDONKEY_DIR}/donkey.ini ]; then
+    cp ${SYNOPKG_PKGDEST}/mldonkey/config/donkey.ini ${MLDONKEY_DIR}
+fi
+if [ ! -f ${MLDONKEY_DIR}/downloads.ini ]; then
+    cp ${SYNOPKG_PKGDEST}/mldonkey/config/downloads.ini ${MLDONKEY_DIR}
+fi
+if [ ! -f ${MLDONKEY_DIR}/users.ini ]; then
+    cp ${SYNOPKG_PKGDEST}/mldonkey/config/users.ini ${MLDONKEY_DIR}
+fi
+
+# CORRECT THE FILES OWNERSHIP
+chown -R $USER:users $SYNOPKG_PKGDEST
+chown -R $USER:users $MLDONKEY_DIR
+
+echo `date +"%Y/%m/%d %T"` "Installed MLDonkey" >> $LOGFILE
+echo `date +"%Y/%m/%d %T"` "Allow port 4080 in firewall to access the server configuration page" >> $LOGFILE
+
+# ADD PORT-FORWARDING CONFIG FILE
+${SERVICETOOL} --install-configure-file --package /var/packages/MLDonkey/target/etc/mldonkey_port
+
+exit 0

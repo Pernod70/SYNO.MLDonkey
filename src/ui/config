@@ -1,0 +1,15 @@
+{
+	".url": {
+		"SYNO.SDS.MLDonkey": {
+			"type": "url",
+			"allUsers": true,
+			"title": "app:app_name",
+			"desc": "app:description",
+			"icon": "images/MLDonkey_{0}.png",
+			"texts": "texts",
+			"protocol": "http",
+			"url": "/",
+			"port": "4080"
+		}
+	}
+}

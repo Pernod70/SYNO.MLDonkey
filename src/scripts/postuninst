@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# NON-PRIVILEGED USER TO RUN MLDONKEY.
+USER=mldonkey
+
+# MLDONKEY HOME
+export MLDONKEY_DIR="`servicetool --get-alive-volume`/MLDonkey"
+
+# PATH TO LOGFILE
+LOGFILE="${MLDONKEY_DIR}/mlnet.log"
+
+synouser --del ${USER}
+
+echo `date +"%Y/%m/%d %T` "Uninstalled MLDonkey" >> $LOGFILE
+
+exit 0

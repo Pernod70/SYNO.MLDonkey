@@ -1,0 +1,101 @@
+#!/bin/sh
+
+# NON-PRIVILEGED USER TO RUN MLDONKEY.
+USER=mldonkey
+
+# PATH TO MLDONKEY
+export MLNET_PATH="${SYNOPKG_PKGDEST}/mldonkey/"
+
+# SYNOLOGY SERVICE TOOL
+SERVICETOOL="/usr/syno/bin/servicetool"
+
+# MLDONKEY HOME
+export MLDONKEY_DIR="`${SERVICETOOL} --get-alive-volume`/MLDonkey"
+
+# PATH TO LOGFILE
+LOGFILE="${MLDONKEY_DIR}/mlnet.log"
+
+# PATH TO PID FILE
+PID_FILE="${MLDONKEY_DIR}/mlnet.pid"
+
+SZD_MLDONKEY="/var/packages/MLDonkey"
+DESKTOP="/usr/syno/synoman/webman/3rdparty/MLDonkey"
+MLDonkeyTarget="${SZD_MLDONKEY}/target"
+MLDonkeyUI="${MLDonkeyTarget}/ui"
+
+DSM_INDEX_ADD="/usr/syno/bin/pkgindexer_add"
+DSM_INDEX_DEL="/usr/syno/bin/pkgindexer_del"
+
+start_mldonkey ()
+{
+    # Launch the server in the background.
+    su $USER -s /bin/sh -c $MLNET_PATH"mlnet >> $LOGFILE 2>&1 &"
+}
+
+stop_mldonkey ()
+{
+    # Kill MLDonkey
+    if [ -f "$PID_FILE" ]
+    then
+        kill `cat "$PID_FILE"`
+        rm -f $PID_FILE
+    fi
+}
+
+mldonkey_status ()
+{
+    if [ -f ${PID_FILE} ] && [ -d /proc/`cat ${PID_FILE}` ]; then
+        return 0
+    fi
+    return 1
+}
+
+case $1 in
+    start)
+        rm -f $DESKTOP
+        if [ ! -z "$SYNOPKG_PKGNAME" -a -n "$SYNOPKG_DSM_VERSION_MAJOR" -a $SYNOPKG_DSM_VERSION_MAJOR -ge 4 ]; then
+            ln -sf ${MLDonkeyUI} ${DESKTOP}
+            ${DSM_INDEX_ADD} ${MLDonkeyUI}/index.conf
+        else
+            ln -sf ${MLDonkeyTarget}/desktop ${DESKTOP}
+        fi
+
+        echo `date +"%Y/%m/%d %T"` "Starting MLDonkey" >> $LOGFILE
+        start_mldonkey
+        echo "Running MLDonkey"
+        exit 0
+        ;;
+    stop)
+        if [ -n "$SYNOPKG_DSM_VERSION_MAJOR" -a $SYNOPKG_DSM_VERSION_MAJOR -ge 4 ]; then 
+            ${DSM_INDEX_DEL} ${MLDonkeyUI}/index.conf
+        fi
+        if [ ! -z "$SYNOPKG_PKGNAME" ]; then
+            rm -f ${DESKTOP}
+        fi
+        echo `date +"%Y/%m/%d %T"` "Stopping MLDonkey" >> $LOGFILE
+        stop_mldonkey
+        echo "Stopped MLDonkey"
+        exit 0
+        ;;
+    status)
+        if mldonkey_status
+        then
+            echo MLDonkey is running
+            exit 0
+        else
+            echo MLDonkey is not running
+            exit 1
+        fi
+        ;;
+
+    log)
+        if [ -f $LOGFILE ];
+        then
+           echo $LOGFILE
+        fi
+        exit 0
+        ;;
+    *)
+        exit 1
+        ;;
+esac

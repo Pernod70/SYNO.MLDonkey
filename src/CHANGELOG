@@ -1,0 +1,5 @@
+Version 3.1.3-001 - 27/04/2013
+* Default username and password is admin/admin.
+* Working folder is MLDonkey shared folder.
+* Creates a MLDonkey firewall rule to allow ports used by interface.
+* Adds 192.168.x.x to allowed_ips to allow browser access on port 4080 from LAN.

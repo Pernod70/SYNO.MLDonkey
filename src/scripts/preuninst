@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# SYNOLOGY SERVICE TOOL
+SERVICETOOL="/usr/syno/bin/servicetool"
+
+# Remove port-forwarding config file
+${SERVICETOOL} --remove-configure-file --package mldonkey_port
+
+exit 0

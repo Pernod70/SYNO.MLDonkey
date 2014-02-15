@@ -1,0 +1,370 @@
+The release mechanism was changed in a way that minor updates
+will not get a release tag in CVS, also the version number reported
+by MLDonkey will stay the same.
+
+Patches done after the last release are experimental,
+please test carefully and report your results.
+
+All numbers mentioned here can be found as patches on
+http://savannah.nongnu.org/patch/?group=mldonkey
+
+To compile MLDonkey on MinGW follow this guide:
+http://mldonkey.sourceforge.net/Windows#MinGW_Installation
+
+ChangeLog
+=========
+
+2012/08/05: version 3.1.3 = tag release-3-1-3
+
+2012/07/27
+7756: BT: Add support for magnet links (ygrek, jave)
+
+2012/07/01
+7813: Fix segfault on Solaris/OpenIndiana in md4 code written in C (dcoppa)
+7812: FreeBSD: proper version identification (lioux)
+
+2012/06/24
+7805: Update upnp libraries
+7804: new option filenames_utf8 (ygrek)
+7803: pause conditions: "pause where priority < X" (ygrek)
+7802: Do not leave empty files if code generation fails (ygrek)
+7801: HTML: Fix content-type for 401 error (ygrek)
+7800: Improve error message visibility (ygrek)
+7799: HTML: fix validation errors (ygrek)
+7798: Fix Mac OS X compilation (ygrek)
+7797: allow build with upcoming OCaml 4.00 (ygrek)
+7795: spelling fix, official language name is "OCaml" (ygrek)
+7796: configure: fix non-portable use of echo (ygrek)
+
+2012/05/23
+7784: IP discover: Fix broken URL
+-------------------------------------------------------------------------------
+2012/05/13: version 3.1.2 = tag release-3-1-2 (expect no binary updates)
+7726: Add support for Debian/Hurd, really ;)
+
+2012/04/05: version 3.1.1 = tag release-3-1-1
+
+2012/04/04
+7732: Remove the non-existant -O6 optimization level (blickly)
+7755: CryptoPP: Fix build with GCC 4.7
+
+2012/02/22
+7728: Update GNU config.guess and config.sub to version 2012-02-10
+7727: Makefile: call `$(CPP) -x c` instead of `cpp` (ygrek)
+7726: Add support for Debian/Hurd
+
+2011/10/25
+7647: Update options description of allow_local_network (ygrek)
+7646: Include .desktop file in source package (ported from Arch Linux)
+7645: DC: show hashing progress in dcinfo (ygrek)
+7644: Fix broken target release.utils.static
+7642: Update GNU config.guess and config.sub to version 2011/10
+7641: DC: fix ownership for downloads by non-admin users (ygrek)
+7593: Less allocations (ygrek)
+-------------------------------------------------------------------------------
+2011/08/07: version 3.1.0 = tag release-3-1-0
+
+2011/07/24
+7499: BT/DHT: fix logging in tools/bt_dht_node.ml
+
+2011/07/16
+7573: http: better error reporting (ygrek)
+7529: configure: better help strings (ygrek)
+
+2011/05/07
+7541: BT: better UI for subfile selection (ygrek)
+- remove debug prefix from set_subfile_prio command
+- do not reload page when toggling subfiles (ajax)
+7540: CryptoPP: Fix compile error with g++ 4.6 (glondu)
+- fixes Debian bug 625051
+
+2011/03/28
+7518: Configure: Ocaml VCS moved to SVN
+- replace --enable-ocamlver=CVS with --enable-ocamlver=SVN to compile SVN trunk
+7517: http: fix XSS in error handler (ygrek)
+7495: Fix compilation of Ocaml 3.11.* with recent binutils (ecc, glondu)
+
+2011/03/20
+7506: BT/DHT: show stats, choose random port (ygrek)
+
+2011/03/14
+7501: Options: Disable Overnet by default and remove contact.dat from web_infos
+
+2011/03/13
+7456: Mail: Multiple mail addresses for admin (ygrek)
+7500: Diskinfo: Recognize BTRFS
+
+2011/03/10
+7499: BT/DHT: fix logging (ygrek)
+7498: BT/DHT: make token more robust against broken nodes (ygrek)
+7497: HTML: mark not saved values in options (ygrek)
+7496: BT: stop asking users to submit unknown client ids (ygrek)
+7495: Fix compilation of Ocaml 3.12.0 with recent binutils (ecc, glondu)
+7494: GTK2 GUI: fix too obtrusive splash window (bugmenot, ygrek)
+7493: BT: open DHT port by UPnP (tathar)
+
+2011/01/31
+7448: BT: support for partial download (jave, pango & ygrek)
+- partial files are not committed, location in temp dir is shown so that users
+  can easily locate downloaded subfiles
+
+2011/01/23
+7442: BT: DHT support (ygrek)
+- new options BT-dht_port, BT-use_trackers, BT-dht_bootstrap_nodes
+- new verbosity level "dht"
+-------------------------------------------------------------------------------
+2011/01/22: version 3.0.7 = tag release-3-0-7
+
+2011/01/06
+6012: Fix bug in Http_client.wget_string (ygrek)
+
+2010/12/22
+7418: Ignore setsockopt_float exception while sending mail
+
+2010/12/19
+7303: UPNP: added BT_tracker-port
+7418: SMTP auth implementation (ygrek)
+- new options smtp_login and smtp_password
+- added socket timeout for mail server communication, fix bug #22713
+7412: tar.gzip: fix harmless error message (ygrek)
+7388: DC: fix sharing on Windows (ygrek)
+-------------------------------------------------------------------------------
+2010/11/15: version 3.0.6 = tag release-3-0-6
+
+2010/11/13
+7386: Makefile: Do not compile make_torrent when BT support is disabled
+- fixes compile error during "make utils"
+
+2010/11/07
+7355: HTML: Fix URL enconding of commands (ygrek)
+7375: FileTP: fix submitting ftp download links (ygrek)
+7374: BT: calculate compatible hash for wrong torrents (ygrek)
+6012: http_client: Support gzip accept-encoding + content-encoding (ygrek)
+
+2010/11/03
+7372: GTK2 GUI: Compile with lablgtk-2.14.2 by default
+
+2010/11/01
+7303: UPNP support (zzpptt)
+- to compile using pre-installed libs: configure --enable-upnp-natpmp
+- to compile UPNP libs during MLDonkey compile use --enable-force-upnp-natpmp
+- ToDo: MinGW support
+7365: HTML: improve code for sorting tables (ygrek)
+7364: KAD: parse new nodes.dat formats (ygrek)
+
+2010/10/28
+7358: Update mlnet_strings.ru_RU.UTF-8 (balamutick)
+
+2010/10/24
+7318: EDK/Emule captcha: Use Base64 functions (ygrek)
+7357: configure: fix quoting of arguments (ygrek)
+
+2010/10/23
+7318: EDK: Emule captcha support and slight cleanup (dennisne)
+- added support for Emule's anti-spam chat CAPTCHAs
+- added clear_message_log command to clear (long) message logs 
+- HTML: reversed order of chat messages
+7319: EDK: Fix CryptoPP on mips64 abi n32 (viric)
+7356: options: ensure that tmp file is removed (ygrek)
+7354: DC: cleanup temporary files (ygrek)
+7353: DC: silence "ADC not supported" message (ygrek)
+7352: net: do not log ordinary network errors (ygrek)
+7351: DC: fix download of large files (integer overflow) (ygrek)
+7350: cleanup accesstest temp files (ygrek)
+
+2010/10/19
+7349: Fix release.* make targets on GNU/kFreeBSD
+7348: Update GNU config.guess and config.sub to version 2010/09
+-------------------------------------------------------------------------------
+2010/09/26: version 3.0.5 = tag release-3-0-5
+
+2010/09/22
+7308: DC: bugfix (generate valid partial list) (ygrek)
+
+2010/09/16
+7144: Update clean targets
+
+2010/09/08
+7305: Xml-light: fix attributes parsing (ygrek)
+7310: EDK: improve comment port option (ygrek)
+7308: DC: handle ADCGET list (ygrek)
+7307: New make target "tests" for unit tests (ygrek)
+7306: DC: show client brand, session transfer and duration (ygrek)
+
+2010/09/07
+7302: DC: Fix performance problem with many shared files (ygrek)
+7299: configure: abort on unknown options
+
+2010/09/01
+7296: Fix compilation problems introduced by patch 7144 (ygrek)
+- remove linking to camlp4lib
+- use alternative if camlp4of is not present
+
+2010/08/29
+7144: BT: Support for UDP trackers (ygrek)
+7288: HTML: Prepare localization (balamutick)
+7287: Fix GTK1 oldgui compile with Ocaml 3.1* (ygrek)
+7289: Raise minimum required Ocaml version to 3.10.1
+
+2010/08/16
+7267: Fix compilation error in GTK2 GUI
+7282: Fix configure warning
+-------------------------------------------------------------------------------
+2010/08/15: version 3.0.4 = tag release-3-0-4
+7280: BT: fix make_torrent creates sometimes torrents without name argument
+      (ygrek)
+7278: configure: more useful --enable-debug (ygrek)
+- enable also for ocamlopt
+- enable when profiling 
+7274: DC: Increase message buffer size to fix communication with bots
+      (somedamnthing)
+
+2010/08/08
+7267: http proxy authentication support (ygrek)
+- new options http_proxy_login and http_proxy_password control authentication
+  for TCP CONNECT and plain HTTP requests through http proxy
+
+2010/08/07
+7273: Fix compile errors on Debian/kFreeBSD
+7272: Configure: Use Ocaml 3.12.0 as default compiler
+7269: Fix typos (glondu)
+-------------------------------------------------------------------------------
+2010/08/01: version 3.0.3 = tag release-3-0-3
+
+2010/07/28
+7262: BT: improve porttest (ygrek)
+7254: BT/bandwidth controllers: accept incoming connections while downloading
+- should improve upload when downlink is saturated (ygrek)
+
+2010/07/24
+7258: russian i18n mlnet_strings (Balamutick/ygrek)
+
+2010/07/18
+7253: Fix downloading Ocaml 3.12 archive, use lablgtk-2.12.0 for Ocaml < 3.10
+7252: GTK2 GUI: Fix compile bug with lablgtk2-20100620 and Ocaml 3.12
+7251: BT: OCaml 3.08.3 compatibility fix (ygrek)
+7250: DC: discover self IP (ygrek)
+7249: DC: fix parsing MyINFO with non-latin nicks (ygrek)
+
+2010/07/17
+7248: DC: correctly parse dchub:// entries in xml hublist (ygrek)
+7247: BT tracker: remember tracked files after restart (ygrek)
+
+2010/07/16
+7245: HTML: Fix unstable option sections links position (ygrek)
+7210: upload scheduler: correctly handle clock jumps (ygrek)
+7219: fsync rename options files (ygrek)
+
+2010/07/15
+7208: New aliases (ygrek)
+- "unpause", "continue" for command "resume"
+- "man" for command "help"
+7233: BT: Announce shared files when share_scan_interval = 0 (ygrek)
+
+2010/05/26
+7206: MinGW: Fix diskinfo on large partitions
+
+2010/05/24
+7201: DC: Whitespace fixes (ygrek)
+7202: BT: Improve internal tracker (ygrek)
+- continue tracking files even if there are no requests
+- better logging and error reporting
+- remove peer from peers list when it sends 'stopped' event
+7203: Fix linking with binutils-gold
+
+2010/05/23
+7183: DC: magnet links and html ui usability tweaks (ygrek)
+7180: DC: better encoding handling (ygrek)
+- new option default_encoding for communications with hubs, default CP1252
+7181: HTML: Fix sorting of friends' file list (ygrek)
+7200: Allow compilation with upcoming Ocaml 3.12
+-------------------------------------------------------------------------------
+2010/04/25: version 3.0.2 = tag release-3-0-2
+7175: DC: PtokaX compatibility (ygrek)
+7169: Equal scales for graphical up/down stats (ygrek)
+7167: Improve add_mail_brackets option description,
+      change default according to RFC (ygrek)
+
+2010/04/11
+7164: BT: more user-friendly tracker (ygrek)
+- `compute_torrent` shows full path and url to generated torrent file
+- `torrents` output htmlized
+- corrected server header
+- improved comments for tracker options
+- search torrents in old directory too
+7163: Fix not sending UDP packets when max_hard_upload_rate = 0 (ygrek)
+
+2010/04/10
+7162: filter longhelp output (ygrek)
+- longhelp (or ??) with parameters will output only those commands that
+  contain all of the specified parameters as substring
+
+2010/04/08
+7161: bw_toggle: Add options "high" and "low"
+- bw_toggle without options works as before
+- if "high" is added, the *_2 option set is used if max_opened_connections_2
+  is higher than max_opened_connections, otherwise the option values are kept
+- if "low" is added, the *_2 option set is used if max_opened_connections_2
+  is lower than max_opened_connections, otherwise the option values are kept
+6959: DC: Fix invalid XML (ygrek)
+- enhanced patch (use Xml.escape and properly escape attributes in Xml.to_string)
+
+2010/04/04
+7153: BT: correctly handle failed tracker requests (ygrek)
+7155: DC: understand hublist.xml (ygrek)
+
+2010/04/02
+7151: BT: html ui tweaks (ygrek)
+
+2010/04/01
+7150: BT: track torrents created with compute_torrent (ygrek)
+
+2010/03/27
+7142: BT: max_uploaders_per_torrent option not restored from .ini files (xboct)
+7140: MinGW: Fix linking with Ocaml 3.11.2
+7139: BT: Some improvements and fixes (ygrek)
+- Don't request sources from tracker (set numwant=0) if we don't need them e.g.
+  'stopped' event or when sharing
+- Prevent client from repeatedly sending 'started' events for shared files
+- Check that peer addresses, returned from tracker in compact format, are valid
+  and not blocked (same check as for non-compact format)
+- Show torrent info_hash in html ui
+7138: BT: Recognize more client brands (ygrek)
+7137: Fix error in calculating average upload speed for client (ygrek)
+7136: GTK2 GUI: start downloads from search results items
+      by double-click (soulcatcher)
+
+2010/03/20
+7128: BT: Fix ratio reporting (ygrek)
+7127: Configure: Use Ocaml 3.11.2 as default compiler
+7076: Support preallocating files on Unix systems (drwho)
+      Recent Linux kernels support fast preallocation when the filesystem is
+      XFS, EXT4 or BTRFS, this patch adds preallocation support when
+      posix_fallocate() is available
+6968: GTK2 GUI: Fix switching server preferred status (dcoppa)
+-------------------------------------------------------------------------------
+2009/10/23: version 3.0.1 = tag release-3-0-1
+6961: BT: Fix torrent parsing when announce-list is empty
+
+2009/10/22
+6959: DC: Fix invalid XML (lucasn)
+6804: EDK: Log incoming chat messages with ip:port info (Dennis Nezic)
+6772: New option max_result_name_len, shortens strings in
+      HTML/Telnet search results
+6958: EDK: Fix server connects on Solaris due to missing SO_KEEPALIVE
+6957: Configure: Make Ocaml 3.11.1 the default compiler
+6956; BT: Fix download of torrent files with no 'announce' field (Hose Bag)
+
+2009/02/28
+6759: HTML: Properly sort column hits in Options, IP blocking
+-------------------------------------------------------------------------------
+2009/02/24: version 3.0.0 = tag release-3-0-0
+6754: Fix local file access bug in internal http server
+- this is an urgent security related bug-fix and effects
+  all MLDonkey versions >= 2.8.4
+6752: Optimized implementation of the ip_set module (cbah)
+6736: Add/fix some copyright texts
+-------------------------------------------------------------------------------
+Split Changelog, all stuff older than 3.0.0 is now in docs/ChangeLog.old:
+
+http://savannah.nongnu.org/cgi-bin/viewcvs/mldonkey/mldonkey/docs/ChangeLog.old?rev=HEAD&content-type=text/vnd.viewcvs-markup

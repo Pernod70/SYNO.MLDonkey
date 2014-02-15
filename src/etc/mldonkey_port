@@ -1,0 +1,13 @@
+[mldonkey_port]
+title="MLDonkey Interface"
+desc="MLDonkey"
+port_forward="no"
+dst.ports="4000,4001,4080/tcp"
+
+[mldonkey_donkey_port]
+
+[mldonkey_bt_port]
+
+[mldonkey_overnet_port]
+
+[mldonkey_kad_port]
